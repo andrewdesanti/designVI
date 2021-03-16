@@ -1,13 +1,31 @@
 import RPi.GPIO as GPIO
 from flask import Flask, render_template, request
-app = Flask(__name__)
+import socket
+import smtplib
 
+senderAddress = "xxxx@gmail.com"
+recieverAddress = "xxxx@xxx.xxx"
+senderPassword = "xxxxxxxx"
+subject = "Hey Andy, Someone Clicked the Button!"
+body = "Ask around the house!"
+
+app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
 
 pins = {
    23 : {'name' : 'GPIO 23', 'state' : GPIO.LOW},
    24 : {'name' : 'GPIO 24', 'state' : GPIO.LOW}
    }
+
+@app.route("/email")
+def sendMail():
+    smtp_server = smtplib.SMTP_SSL("smtp.gmail.com")
+    smtp_server.login(senderAddress, senderPassword)
+    message = f"Subject: {subject}\n\n{body}"
+    smtp_server.sendmail(senderAddress, recieverAddress, message)
+    templateData = {
+      'pins' : pins }
+    return render_template('main.html', **templateData)
 
 for pin in pins:
    GPIO.setup(pin, GPIO.OUT)
