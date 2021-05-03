@@ -11,7 +11,7 @@ GPIO.setup(13, GPIO.OUT)
 GPIO.setup(17, GPIO.OUT)
 rain = ["shower rain", "rain", "thunderstorm", "snow", "mist"]
 #openweatherapi setup
-key = "f0438c10256ca172f2728d5c8ea2b88b"
+key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 urlBase = "https://api.openweathermap.org/data/2.5/weather?"
 #geocoder for coordiantes
 location = geocoder.ip('me')
